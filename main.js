@@ -38,3 +38,51 @@ function speak()
     var utterThis = new SpeechSynthesisUtterance(speak_data_1+speak_data_2);
     synth.speak(utterThis);
 }
+
+
+function identify()
+{
+    img = document.getElementById("capturedimage");
+    classifier.classify(img,gotResult);
+}
+
+function gotResult(error, results)
+{
+    if(error)
+    {
+        console.log(error);
+    }
+    else{
+        document.getElementById("result_emotion_name").innerHTML = results[0].label;
+        document.getElementById("result_emotion_name2").innerHTML = results[1].label;
+        prediction_1= results[0].label;
+        prediction_2=results[1].label;
+        speak()
+        if(results[0].label == "victory")
+        {
+            document.getElementById("result_emoji_name").innerHTML = "&#9996;";
+        }
+        if(results[0].label == "best")
+        {
+            document.getElementById("result_emoji_name").innerHTML = "&#128077;";
+        }
+        if(results[0].label == "amazing")
+        {
+            document.getElementById("result_emoji_name").innerHTML = "&#128076;";
+        }
+
+
+
+        if(results[1].label == "victory")      {
+            document.getElementById("result_emoji_name2").innerHTML = "&#9996;";
+        }
+        if(results[1].label == "best")
+        {
+            document.getElementById("result_emoji_name2").innerHTML = "&#128077;";
+        }
+        if(results[1].label == "amazing")
+        {
+            document.getElementById("result_emoji_name2").innerHTML = "&#128076;";
+        }
+    }
+}
